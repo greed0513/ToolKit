@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具平台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左側選單 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>工具選單</h2>
+                <button class="btn-add" id="addLinkBtn">+ 新增工具</button>
+            </div>
+
+            <ul class="link-list" id="linkList">
+                <!-- 連結列表將動態生成 -->
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="sync-status" id="syncStatus">
+                    <span class="sync-icon">☁️</span>
+                    <span class="sync-text">本地模式</span>
+                </div>
+                <div class="footer-actions">
+                    <button class="btn-footer" id="syncBtn" title="立即同步">🔄</button>
+                    <button class="btn-footer" id="exportBtn" title="導出數據">💾</button>
+                    <button class="btn-footer" id="importBtn" title="導入數據">📁</button>
+                    <button class="btn-footer" id="settingsBtn" title="設置">⚙️</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 右側內容區 -->
+        <main class="content">
+            <div class="welcome" id="welcomeScreen">
+                <h1>歡迎使用工具平台</h1>
+                <p>請從左側選單選擇或新增工具</p>
+            </div>
+            <iframe id="toolFrame" class="tool-frame" style="display: none;"></iframe>
+        </main>
+    </div>
+
+    <!-- 新增/編輯連結對話框 -->
+    <div class="modal" id="linkModal">
+        <div class="modal-content">
+            <h3 id="modalTitle">新增工具</h3>
+            <div class="form-group">
+                <label for="linkUrl">網址 (URL):</label>
+                <input type="url" id="linkUrl" placeholder="https://example.com" required>
+                <button class="btn-fetch" id="fetchTitleBtn">自動抓取標題</button>
+            </div>
+            <div class="form-group">
+                <label for="linkName">名稱:</label>
+                <input type="text" id="linkName" placeholder="工具名稱" required>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" id="saveLinkBtn">儲存</button>
+                <button class="btn-secondary" id="cancelBtn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 設置對話框 -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3>雲端同步設置</h3>
+            <div class="form-group">
+                <label for="githubToken">GitHub Personal Access Token:</label>
+                <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
+                <small class="help-text">
+                    用於同步數據到您的 GitHub Gist<br>
+                    <a href="https://github.com/settings/tokens/new?description=ToolKit%20Sync&scopes=gist" target="_blank">點此創建 Token</a>（需要 gist 權限）
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="gistId">Gist ID (選填):</label>
+                <input type="text" id="gistId" placeholder="自動創建或輸入現有 Gist ID">
+                <small class="help-text">留空將自動創建新的 Gist</small>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" id="saveSettingsBtn">儲存設置</button>
+                <button class="btn-danger" id="clearSettingsBtn">清除設置</button>
+                <button class="btn-secondary" id="closeSettingsBtn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 隱藏的檔案輸入 -->
+    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+
+    <script src="script.js"></script>
+</body>
+</html>
